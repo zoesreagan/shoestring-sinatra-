@@ -3,7 +3,26 @@ class ApplicationController < Sinatra::Base
 	Bundler.require()
 
 	get '/' do
-		"Server is running"
+		{
+      success: false,
+      message: "Please consult the API documentation"
+    }.to_json
 	end
 
+	not_found do
+    halt 404
+  end
+
+  configure do
+    enable :cross_origin
+  end #cross-origin
+  set :allow_origin, :any
+  set :allow_methods, [:get, :post,:delete, :put, :options]
+
+  options '*' do
+    p "opi"
+    response.headers['Allow'] = 'HEAD, GET, POST, PUT, PATCH, DELETE'
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Cache-Control, Accept"
+  end
 end
