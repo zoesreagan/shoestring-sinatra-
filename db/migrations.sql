@@ -1,12 +1,14 @@
 DROP DATABASE IF EXISTS shoestring;
 CREATE DATABASE shoestring;
 \c shoestring;
+
 CREATE TABLE users(
 	id SERIAL PRIMARY KEY,
 	username VARCHAR(128),
 	name VARCHAR(128),
 	photo VARCHAR(256)
 );
+
 CREATE TABLE flights(
 	id SERIAL PRIMARY KEY,
 	origin VARCHAR(256),
@@ -18,6 +20,7 @@ CREATE TABLE flights(
 	flight_num VARCHAR(64),
 	fare NUMERIC
 );
+
 CREATE TABLE hotels(
 	id SERIAL PRIMARY KEY,
 	location_code VARCHAR(32),
@@ -27,14 +30,13 @@ CREATE TABLE hotels(
 	num_of_rooms SMALLINT,
 	price NUMERIC
 );
+
 CREATE TABLE trips(
 	id SERIAL PRIMARY KEY,
-	title VARCHAR(6128,
+	title VARCHAR(256),
+	-- cost sum of fare + price ,
 	budget SMALLINT,
-	saved NUMERIC ,
+	saved NUMERIC,
 	hotel_id INT REFERENCES hotels(id),
 	flight_id INT REFERENCES flights(id)
 );
-
-
--- cost sum of fare + price ,
