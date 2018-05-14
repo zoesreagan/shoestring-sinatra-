@@ -1,6 +1,5 @@
 class TripController < ApplicationController
 	# get all of the trips that belong to a user
-	# this might be better in the user controller? 
 
 	# TEST ROUTE - GET ALL THE TRIPS TO MAKE SURE EVERYTHIGN IS CONNECTED PROPERLY
 	get '/' do
@@ -11,6 +10,7 @@ class TripController < ApplicationController
 			trips: @trips
 		}.to_json
 	end 
+
 	# get '/' do
 	# 	# find the user by id
 	# 	@trips = Trip.all
@@ -29,6 +29,22 @@ class TripController < ApplicationController
 
 	# 	@trip.save
 	# end
+
+##CREATE TRIP ROUTE
+
+#UPDATE TRIP ROUTE 
+	put '/:id'do
+		@trip = Trip.find(params[:id])
+		@trip.title = @payload[:title]
+		@trip.save
+		{
+			success: true,
+			message: "You updated trip \##{@trip.id}",
+			updated_trip: @trip
+		}.to_json
+	end
+
+
 
 	delete '/:id' do
 		@trip = Trip.find params[:id]

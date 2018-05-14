@@ -6,16 +6,23 @@ require './controllers/ApplicationController'
 require './controllers/UserController'
 require './controllers/TripController'
 
+# models
+require './models/UserModel'
+require './models/TripModel'
+require './models/HotelModel'
+require './models/FlightModel'
+
+
 
 # routes
 map ('/'){
 	run ApplicationController
 }
 
-map('/users') {
+map('/user') {
 	run UserController
 }
 
-map ('/trips') {
+map('/trips') {
 	run TripController
 }
