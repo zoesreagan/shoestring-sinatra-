@@ -28,12 +28,16 @@ end
 	# TEST ROUTE - GET ALL THE TRIPS TO MAKE SURE EVERYTHING IS CONNECTED PROPERLY
 
 	get '/' do
+		@user = User.find session[:user_id]
+		@trip = Trip.find_by user_id: session[:user_id]
+
 		{
 			success: true,
-			session: session[:user_id]
+			message: "Here is a list of trips for #{@user.name}",
+			trip: @trip
 		}.to_json
 
-		# @user = User.find session[:user_id]
+		
 		# this_users_trips = user.trips
 	# 	# find the user by id
 	# 	@trips = Trip.all

@@ -10,7 +10,7 @@ INSERT INTO users (name) VALUES ('user1');
 INSERT INTO trips (title, budget, saved) VALUES ('patagonia', '5000', '1000');
 INSERT INTO trips (title, budget, saved) VALUES ('euro trek', '5000', '1000');
 INSERT INTO trips (title, budget, saved) VALUES ('thailand', '5000', '1000');
-INSERT INTO trips (title, budget, saved) VALUES ('thailand', '5000', '1000');
+INSERT INTO trips (title, budget, saved, user_id) VALUES ('thailand', '5000', '1000', 1);
 
 
 
