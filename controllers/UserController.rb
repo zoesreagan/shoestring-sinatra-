@@ -13,28 +13,37 @@ class UserController < ApplicationController
 	  	user.name = @payload[:name]
 	  	user.username = @payload[:username]
 	  	user.password = @payload[:password]
-	  	user.save
+	  	user.photo = @payload[:photo]
 
-	  	session[:logged_in] = true
-	  	session[:name] = user.name
-	  	session[:username] = user.username
-	  	session[:user_id] = user.id
-	  	session[:photo] = user.photo
-
-	  	puts ''
-	  	puts 'hitting register rt. here is the session'
-	  	pp session
-	  	puts''
+	  	userExist = User.find_by username: user.username
+	  	if userExist
+	  		{
+	  			success: false,
+	  			message: "username already taken, try again"
+	  		}.to_json
+	  	else
+		  	user.save
+		  	session[:logged_in] = true
+		  	session[:name] = user.name
+		  	session[:username] = user.username
+		  	session[:user_id] = user.id
+		  	session[:photo] = user.photo
+		  	{
+		  		success: true,
+		  		user_id: user.id,
+			  	username: user.username,
+		  		message: 'you are logged in and you have a cookie attached to all the responses'
+	  		}.to_json
+		end
+	  	# puts ''
+	  	# puts 'hitting register rt. here is the session'
+	  	# pp session
+	  	# puts''
 
 	  	# here you should check for
 	  		# blank input -- send fail
 	  		# does this return succes and message
-	  	{
-	  		success: true,
-	  		user_id: user.id,
-		  	username: user.username,
-	  		message: 'you are logged in and you have a cookie attached to all the responses'
-	  	}.to_json
+	  	
 	end
 
 	post '/login' do
@@ -71,7 +80,7 @@ class UserController < ApplicationController
 	  	else
 	  		{
 	  			success: false,
-	  			message: 'Invalid Username or pw'
+	  			message: 'Invalid Username or password'
 	  		}.to_json
 	  	end
   	end
