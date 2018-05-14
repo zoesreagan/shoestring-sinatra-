@@ -14,49 +14,21 @@ class TripController < ApplicationController
   end
 end
 
-	# TEST ROUTE - GET ALL THE TRIPS TO MAKE SURE EVERYTHIGN IS CONNECTED PROPERLY
-	# get '/' do
-	# 	@trips = Trip.all
-	# 	{
-	# 		success: true,
-	# 		message: "You got all the trips",
-	# 		trips: @trips
-	# 	}.to_json
-	# end 
 	# get all of the trips that belong to a user- HANNAH
 
-	# TEST ROUTE - GET ALL THE TRIPS TO MAKE SURE EVERYTHING IS CONNECTED PROPERLY
-
 	get '/' do
-		# @user = User.find session[:user_id]
-		# @trip = Trip.find_by user_id: session[:user_id]
-		@trip = Trip.where(user_id: 1).find_each
+
+		#@user = User.find session[:user_id]
+		# @trip = Trip.find_by user_id: session[:user_id] <-- ADD BACK IN ONCE LOGIN FUNCTION IS ADDED
+		# @user = User.find 1
+		@trip = Trip.where(user_id: 1).find_each  # hardcoding this for react development, needs to be removed
 		{
 			success: true,
-			message: "Here is a list of trips for #{@user.name}",
+			# message: "Here is a list of trips for #{@user.name}",
 			trip: @trip
 		}.to_json
 
-		
-		# this_users_trips = user.trips
-	# 	# find the user by id
-	# 	@trips = Trip.all
 	end
-
-
-	#check to make sure these line up with database and form before pushing
-	# post '/' do
-	# 	payload_body = request.body.read
-	# 	payload = JSON.parse(payload_body).symbolize_keys
-
-	# 	@trip = Trip.new
-	# 	@trip.name = payload[:name]
-	# 	@trip.budget = payload[:budget]
-
-
-
-	# 	@trip.save
-	# end
 
 ##CREATE TRIP ROUTE
 post '/' do
