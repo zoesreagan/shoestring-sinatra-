@@ -2,19 +2,25 @@ class TripController < ApplicationController
 	# get all of the trips that belong to a user
 
 	# TEST ROUTE - GET ALL THE TRIPS TO MAKE SURE EVERYTHIGN IS CONNECTED PROPERLY
+	# get '/' do
+	# 	@trips = Trip.all
+	# 	{
+	# 		success: true,
+	# 		message: "You got all the trips",
+	# 		trips: @trips
+	# 	}.to_json
+	# end 
+
 	get '/' do
-		@trips = Trip.all
 		{
 			success: true,
-			message: "You got all the trips",
-			trips: @trips
+			session: session[:user_id]
 		}.to_json
-	end 
-
-	# get '/' do
+		# @user = User.find session[:user_id]
+		# this_users_trips = user.trips
 	# 	# find the user by id
 	# 	@trips = Trip.all
-	# end
+	end
 
 	#check to make sure these line up with database and form before pushing
 	# post '/' do
