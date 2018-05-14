@@ -22,7 +22,7 @@ class TripController < ApplicationController
 
 ##CREATE TRIP ROUTE
 
-#UPDATE TRIP ROUTE 
+#UPDATE TRIP ROUTE
 	put '/:id'do
 		@trip = Trip.find(params[:id])
 		@trip.title = @payload[:title]
@@ -34,7 +34,7 @@ class TripController < ApplicationController
 		}.to_json
 	end
 
-
+#DELETE TRIP ROUTE
 
 	delete '/:id' do
 		@trip = Trip.find params[:id]
