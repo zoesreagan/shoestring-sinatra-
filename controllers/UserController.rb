@@ -82,6 +82,16 @@ class UserController < ApplicationController
 	  		success: true,
 	  		message: "you are logged out"
 	  	}.to_json
-  end
+  	end
 
+  	put '/:id' do
+	    user = User.find(params[:id])
+	    user.name = @payload[:name]
+	    user.username = @payload[:username]
+	    user.password = @payload[:password]
+	    {
+	      success: true,
+	      message: "You updated user \##{user.id}"
+	    }.to_json
+  	end
 end
