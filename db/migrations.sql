@@ -3,8 +3,9 @@ CREATE DATABASE shoestring;
 \c shoestring;
 CREATE TABLE users(
 	id SERIAL PRIMARY KEY,
-	username VARCHAR(128),
 	name VARCHAR(128),
+	username VARCHAR(64),
+	password_digest VARCHAR(256),
 	photo VARCHAR(256)
 );
 CREATE TABLE flights(
@@ -29,9 +30,9 @@ CREATE TABLE hotels(
 );
 CREATE TABLE trips(
 	id SERIAL PRIMARY KEY,
-	title VARCHAR(6128,
-	budget SMALLINT,
-	saved NUMERIC ,
+	title VARCHAR(128),
+	budget INT,
+	saved NUMERIC,
 	hotel_id INT REFERENCES hotels(id),
 	flight_id INT REFERENCES flights(id)
 );
