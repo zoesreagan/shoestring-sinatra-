@@ -76,7 +76,7 @@ class UserController < ApplicationController
   	get '/logout' do
 	  	session.destroy
 	  	{
-	  		succses: true,
+	  		success: true,
 	  		message: "you are logged out"
 	  	}.to_json
   end
