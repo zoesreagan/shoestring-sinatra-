@@ -30,7 +30,7 @@ class UserController < ApplicationController
 	  		# blank input -- send fail
 	  		# does this return succes and message
 	  	{
-	  		succses: true,
+	  		success: true,
 	  		user_id: user.id,
 		  	username: user.username,
 	  		message: 'you are logged in and you have a cookie attached to all the responses'
