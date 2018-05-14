@@ -21,7 +21,8 @@ end
 		#@user = User.find session[:user_id]
 		# @trip = Trip.find_by user_id: session[:user_id] <-- ADD BACK IN ONCE LOGIN FUNCTION IS ADDED
 		# @user = User.find 1
-		@trip = Trip.where(user_id: 1).find_each  # hardcoding this for react development, needs to be removed
+		@trip = Trip.where(user_id: session[:user_id])
+		# @trip = Trip.where(user_id: 1).find_each  # hardcoding this for react development, needs to be removed
 		{
 			success: true,
 			# message: "Here is a list of trips for #{@user.name}",
