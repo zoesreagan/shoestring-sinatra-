@@ -29,7 +29,7 @@ class UserController < ApplicationController
 	  		# blank input -- send fail
 	  		# does this return succes and message
 	  	{
-	  		succses: true,
+	  		success: true,
 	  		user_id: user.id,
 	  		user_name: user.name,
 		  	username: user.username,
@@ -60,7 +60,7 @@ class UserController < ApplicationController
 		  	pp session
 		  	puts ''
 		  	{
-		  		succses: true,
+		  		success: true,
 		  		user_name: user.name,
 		  		user_id: user.id,
 		  		username: username,
@@ -68,7 +68,7 @@ class UserController < ApplicationController
 		  	}.to_json
 	  	else
 	  		{
-	  			succses: false,
+	  			success: false,
 	  			message: 'Invalid Username or pw'
 	  		}.to_json
 	  	end
@@ -77,7 +77,7 @@ class UserController < ApplicationController
   	get '/logout' do
 	  	session.destroy
 	  	{
-	  		succses: true,
+	  		success: true,
 	  		message: "you are logged out"
 	  	}.to_json
   end
