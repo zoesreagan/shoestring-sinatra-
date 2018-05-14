@@ -1,6 +1,16 @@
 class TripController < ApplicationController
 	# get all of the trips that belong to a user
 	# this might be better in the user controller? 
+
+	# TEST ROUTE - GET ALL THE TRIPS TO MAKE SURE EVERYTHIGN IS CONNECTED PROPERLY
+	get '/' do
+		@trips = Trip.all
+		{
+			success: true,
+			message: "You got all the trips",
+			trips: @trips
+		}.to_json
+	end 
 	# get '/' do
 	# 	# find the user by id
 	# 	@trips = Trip.all

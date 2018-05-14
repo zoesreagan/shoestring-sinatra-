@@ -4,6 +4,7 @@ require 'sinatra/activerecord'
 # controllers
 require './controllers/ApplicationController'
 require './controllers/UserController'
+require './controllers/TripController'
 
 
 # routes
@@ -13,4 +14,8 @@ map ('/'){
 
 map('/users') {
 	run UserController
+}
+
+map ('/trips') {
+	run TripController
 }

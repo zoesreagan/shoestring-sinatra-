@@ -33,6 +33,7 @@ CREATE TABLE hotels(
 
 CREATE TABLE trips(
 	id SERIAL PRIMARY KEY,
+	user_id INT REFERENCES users(id),
 	title VARCHAR(256),
 	-- cost sum of fare + price ,
 	budget SMALLINT,
