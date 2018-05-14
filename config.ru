@@ -8,6 +8,10 @@ require './controllers/TripController'
 
 # models
 require './models/UserModel'
+require './models/TripModel'
+require './models/HotelModel'
+require './models/FlightModel'
+
 
 
 # routes
