@@ -28,9 +28,9 @@ end
 	# TEST ROUTE - GET ALL THE TRIPS TO MAKE SURE EVERYTHING IS CONNECTED PROPERLY
 
 	get '/' do
-		@user = User.find session[:user_id]
-		@trip = Trip.find_by user_id: session[:user_id]
-
+		# @user = User.find session[:user_id]
+		# @trip = Trip.find_by user_id: session[:user_id]
+		@trip = Trip.where(user_id: 1).find_each
 		{
 			success: true,
 			message: "Here is a list of trips for #{@user.name}",
