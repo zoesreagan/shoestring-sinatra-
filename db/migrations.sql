@@ -4,8 +4,9 @@ CREATE DATABASE shoestring;
 
 CREATE TABLE users(
 	id SERIAL PRIMARY KEY,
-	username VARCHAR(128),
 	name VARCHAR(128),
+	username VARCHAR(64),
+	password_digest VARCHAR(256),
 	photo VARCHAR(256)
 );
 
