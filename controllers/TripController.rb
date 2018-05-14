@@ -52,7 +52,7 @@ class TripController < ApplicationController
 
 		{
 			success: true,
-			message: "trip #{@trip.name} deleted successfully"
+			message: "trip #{@trip.title} deleted successfully"
 		}.to_json
 	end
 
