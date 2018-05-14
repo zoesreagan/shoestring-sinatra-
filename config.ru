@@ -16,4 +16,3 @@ map ('/'){
 
 map('/user') {
 	run UserController
-}
