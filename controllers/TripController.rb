@@ -59,8 +59,27 @@ end
 	# end
 
 ##CREATE TRIP ROUTE
+post '/' do
 
-#UPDATE TRIP ROUTE 
+	# this is how you add something with ActiveRecord.
+	@trip = Trip.new #instantiating a new class from Trip model
+	@trip.title = @payload[:title]
+	@trip.budget = @payload[:budget]
+	@trip.saved = @payload[:saved]
+	@trip.flight_id = @payload[:@flight_id]
+	@trip.hotel_id = @payload[:hotel_id]
+	@trip.save
+	{
+		success: true,
+		message: "Trip #{@trip.title} successfully created",
+		added_trip: @trip
+	}.to_json
+
+end
+
+
+
+#UPDATE TRIP ROUTE
 	put '/:id'do
 		@trip = Trip.find(params[:id])
 		@trip.title = @payload[:title]
