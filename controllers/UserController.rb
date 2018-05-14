@@ -16,9 +16,10 @@ class UserController < ApplicationController
 	  	user.save
 
 	  	session[:logged_in] = true
-	  	session[:user_name] = user.name
+	  	session[:name] = user.name
 	  	session[:username] = user.username
 	  	session[:user_id] = user.id
+	  	session[:photo] = user.photo
 
 	  	puts ''
 	  	puts 'hitting register rt. here is the session'
@@ -31,7 +32,6 @@ class UserController < ApplicationController
 	  	{
 	  		success: true,
 	  		user_id: user.id,
-	  		user_name: user.name,
 		  	username: user.username,
 	  		message: 'you are logged in and you have a cookie attached to all the responses'
 	  	}.to_json
@@ -54,12 +54,14 @@ class UserController < ApplicationController
 	  		session[:name] = user.name
 	  		session[:username] = username
 	  		session[:user_id] = user.id
+	  		session[:photo] = user.photo
 
 	  		puts ''
 		  	puts "here is session in login after logging in"
 		  	pp session
 		  	puts ''
 		  	{
+
 		  		success: true,
 		  		user_name: user.name,
 		  		user_id: user.id,
