@@ -2,6 +2,12 @@ class ApplicationController < Sinatra::Base
 	require 'bundler'
 	Bundler.require()
 
+  register Sinatra::CrossOrigin
+
+  use Rack::Session::Cookie,  :key => 'rack.session',
+                              :path => '/',
+                              :secret => 'secret'
+
 	get '/' do
 		{
       success: false,
