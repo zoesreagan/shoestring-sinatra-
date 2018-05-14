@@ -16,7 +16,7 @@ class UserController < ApplicationController
 	  	user.save
 
 	  	session[:logged_in] = true
-	  	session[:user_name] = user.name
+	  	session[:name] = user.name
 	  	session[:username] = user.username
 	  	session[:user_id] = user.id
 	  	session[:photo] = user.photo
@@ -30,7 +30,7 @@ class UserController < ApplicationController
 	  		# blank input -- send fail
 	  		# does this return succes and message
 	  	{
-	  		succses: true,
+	  		success: true,
 	  		user_id: user.id,
 		  	username: user.username,
 	  		message: 'you are logged in and you have a cookie attached to all the responses'
@@ -54,20 +54,23 @@ class UserController < ApplicationController
 	  		session[:name] = user.name
 	  		session[:username] = username
 	  		session[:user_id] = user.id
+	  		session[:photo] = user.photo
 
 	  		puts ''
 		  	puts "here is session in login after logging in"
 		  	pp session
 		  	puts ''
 		  	{
-		  		succses: true,
+
+		  		success: true,
+		  		user_name: user.name,
 		  		user_id: user.id,
 		  		username: username,
 		  		message: 'Login succsesful'
 		  	}.to_json
 	  	else
 	  		{
-	  			succses: false,
+	  			success: false,
 	  			message: 'Invalid Username or pw'
 	  		}.to_json
 	  	end
@@ -76,7 +79,7 @@ class UserController < ApplicationController
   	get '/logout' do
 	  	session.destroy
 	  	{
-	  		succses: true,
+	  		success: true,
 	  		message: "you are logged out"
 	  	}.to_json
   end

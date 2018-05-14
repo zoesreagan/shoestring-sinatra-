@@ -14,4 +14,3 @@ INSERT INTO trips (title, budget, saved) VALUES ('thailand', '5000', '1000');
 
 
 INSERT INTO flights (origin, destination) VALUES ('miami', 'lisbon');
-
