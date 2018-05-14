@@ -50,7 +50,6 @@ post '/' do
 end
 
 
-
 #UPDATE TRIP ROUTE
 	put '/:id'do
 		@trip = Trip.find(params[:id])

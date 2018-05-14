@@ -7,6 +7,18 @@ class UserController < ApplicationController
 	    end
 	end
 
+#GET route to show user by sessionID
+		get '/' do
+			@user = User.find(session[:user_id])
+
+			{
+				success: true,
+				message: "Found user #{@user.id}",
+				found_user: @user
+			}.to_json
+
+	end
+
 	post '/register' do
 	  	user = User.new
 
