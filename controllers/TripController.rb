@@ -41,6 +41,7 @@ post '/' do
 	@trip.saved = @payload[:saved]
 	@trip.flight_id = @payload[:@flight_id]
 	@trip.hotel_id = @payload[:hotel_id]
+	@trip.user_id = session[:user_id]
 	@trip.save
 	{
 		success: true,
