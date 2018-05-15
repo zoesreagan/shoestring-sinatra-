@@ -25,6 +25,7 @@ class UserController < ApplicationController
 	  	user.name = @payload[:name]
 	  	user.username = @payload[:username]
 	  	user.password = @payload[:password]
+			user.photo = @payload[:photo]
 	  	user.save
 
 	  	session[:logged_in] = true
