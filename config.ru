@@ -5,6 +5,7 @@ require 'sinatra/activerecord'
 require './controllers/ApplicationController'
 require './controllers/UserController'
 require './controllers/TripController'
+require './controllers/FlightController'
 
 # models
 require './models/UserModel'
@@ -25,4 +26,8 @@ map('/user') {
 
 map('/trips') {
 	run TripController
+}
+
+map('/flights') {
+	run FlightController
 }
