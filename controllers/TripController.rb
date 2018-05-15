@@ -15,9 +15,6 @@ class TripController < ApplicationController
 	      }.to_json
 	end
 end
-	before do
-	    
-	end
 
 	get '/' do
 
