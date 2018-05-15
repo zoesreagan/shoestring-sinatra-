@@ -13,6 +13,9 @@ class ApplicationController < Sinatra::Base
                               :path => '/',
                               :secret => 'secret'
 
+  # use Rack::MethodOverride
+  # set :method_override, true
+
 	get '/' do
 		{
       success: false,
@@ -33,7 +36,7 @@ class ApplicationController < Sinatra::Base
   options '*' do
     p "opi"
     response.headers['Allow'] = 'HEAD, GET, POST, PUT, PATCH, DELETE'
-    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000'
     response.headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Cache-Control, Accept"
   end
 end
