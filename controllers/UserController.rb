@@ -96,10 +96,24 @@ class UserController < ApplicationController
 	    user.username = @payload[:username]
 	    user.password = @payload[:password]
 	    user.photo = @payload[:photo]
-	    user.save
-	    {
-	      success: true,
-	      message: "You updated user"
-	    }.to_json
+
+	    userExist = User.find_by username: user.username
+	  	if userExist
+	  		{
+	  			success: false,
+	  			message: "username already taken, try again"
+	  		}.to_json
+	  	else
+		  	user.save
+		  	{
+		  		success: true,
+		  		message: 'User was successfuly updated'
+	  		}.to_json
+		end
+	    # user.save
+	    # {
+	    #   success: true,
+	    #   message: "You updated user"
+	    # }.to_json
   	end
 end
