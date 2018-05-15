@@ -110,6 +110,7 @@ class UserController < ApplicationController
 	    user.name = @payload[:name]
 	    user.username = @payload[:username]
 	    user.password = @payload[:password]
+	    user.photo = @payload[:photo]
 	    {
 	      success: true,
 	      message: "You updated user \##{user.id}"
