@@ -58,30 +58,16 @@ class UserController < ApplicationController
 	end
 
 	post '/login' do
-	  	puts ''
-	  	puts "login. hitting session"
-	  	pp session
-	  	puts ''
-
-
 	  	username = @payload[:username]
 	  	password = @payload[:password]
-
 	  	user = User.find_by username: username
-
 	  	if user && user.authenticate(password)
 	  		session[:logged_in] = true
 	  		session[:name] = user.name
 	  		session[:username] = username
 	  		session[:user_id] = user.id
 	  		session[:photo] = user.photo
-
-	  		puts ''
-		  	puts "here is session in login after logging in"
-		  	pp session
-		  	puts ''
 		  	{
-
 		  		success: true,
 		  		user_name: user.name,
 		  		user_id: user.id,
@@ -109,9 +95,11 @@ class UserController < ApplicationController
 	    user.name = @payload[:name]
 	    user.username = @payload[:username]
 	    user.password = @payload[:password]
+	    user.photo = @payload[:photo]
+	    user.save
 	    {
 	      success: true,
-	      message: "You updated user \##{user.id}"
+	      message: "You updated user"
 	    }.to_json
   	end
 end
