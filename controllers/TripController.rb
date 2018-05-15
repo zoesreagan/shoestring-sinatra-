@@ -6,20 +6,17 @@ class TripController < ApplicationController
     if(payload_body != "")
     @payload = JSON.parse(payload_body).symbolize_keys
     #parsing the payload body as JSON and converting keys to hashes
+	end
 
-
-    puts "-----------------------------------------------HERE IS OUR PAYLOAD"
-    p @payload
-    puts "-----------------------------------------------------------------"
-  end
-end
-	before do
-	    if !session[:logged_in]
+  	if !session[:logged_in]
 	      halt 200, {
 	        success: false,
 	        message: 'you are not loged in'
 	      }.to_json
-	    end
+	end
+end
+	before do
+	    
 	end
 	# get all of the trips that belong to a user- HANNAH
 
@@ -40,20 +37,24 @@ end
 
 ##CREATE TRIP ROUTE
 post '/' do
+	puts @payload
+	puts "this is payload ---------------------"
 
 	# this is how you add something with ActiveRecord.
 	@trip = Trip.new #instantiating a new class from Trip model
 	@trip.title = @payload[:title]
 	@trip.budget = @payload[:budget]
-	@trip.saved = @payload[:saved]
+	@trip.saved = @payload[:amountSaved]
 	@trip.flight_id = @payload[:@flight_id]
 	@trip.hotel_id = @payload[:hotel_id]
 	@trip.user_id = session[:user_id]
 	@trip.save
+	
 	{
 		success: true,
 		message: "Trip #{@trip.title} successfully created",
-		added_trip: @trip
+		added_trip: @trip,
+		added_flight: @flight
 	}.to_json
 
 end
