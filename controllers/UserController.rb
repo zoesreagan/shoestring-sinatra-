@@ -8,15 +8,14 @@ class UserController < ApplicationController
 	end
 
 #GET route to show user by sessionID
-		get '/' do
-			@user = User.find(session[:user_id])
+	get '/' do
+		@user = User.find(session[:user_id])
 
-			{
-				success: true,
-				message: "Found user #{@user.id}",
-				found_user: @user
-			}.to_json
-
+		{
+			success: true,
+			message: "Found user #{@user.id}",
+			found_user: @user
+		}.to_json
 	end
 
 	post '/register' do
@@ -25,29 +24,37 @@ class UserController < ApplicationController
 	  	user.name = @payload[:name]
 	  	user.username = @payload[:username]
 	  	user.password = @payload[:password]
-			user.photo = @payload[:photo]
-	  	user.save
+	  	user.photo = @payload[:photo]
 
-	  	session[:logged_in] = true
-	  	session[:name] = user.name
-	  	session[:username] = user.username
-	  	session[:user_id] = user.id
-	  	session[:photo] = user.photo
-
-	  	puts ''
-	  	puts 'hitting register rt. here is the session'
-	  	pp session
-	  	puts''
+	  	userExist = User.find_by username: user.username
+	  	if userExist
+	  		{
+	  			success: false,
+	  			message: "username already taken, try again"
+	  		}.to_json
+	  	else
+		  	user.save
+		  	session[:logged_in] = true
+		  	session[:name] = user.name
+		  	session[:username] = user.username
+		  	session[:user_id] = user.id
+		  	session[:photo] = user.photo
+		  	{
+		  		success: true,
+		  		user_id: user.id,
+			  	username: user.username,
+		  		message: 'you are logged in and you have a cookie attached to all the responses'
+	  		}.to_json
+		end
+	  	# puts ''
+	  	# puts 'hitting register rt. here is the session'
+	  	# pp session
+	  	# puts''
 
 	  	# here you should check for
 	  		# blank input -- send fail
 	  		# does this return succes and message
-	  	{
-	  		success: true,
-	  		user_id: user.id,
-		  	username: user.username,
-	  		message: 'you are logged in and you have a cookie attached to all the responses'
-	  	}.to_json
+	  	
 	end
 
 	post '/login' do
@@ -84,7 +91,7 @@ class UserController < ApplicationController
 	  	else
 	  		{
 	  			success: false,
-	  			message: 'Invalid Username or pw'
+	  			message: 'Invalid Username or password'
 	  		}.to_json
 	  	end
   	end
@@ -95,6 +102,16 @@ class UserController < ApplicationController
 	  		success: true,
 	  		message: "you are logged out"
 	  	}.to_json
-  end
+  	end
 
+  	put '/:id' do
+	    user = User.find(params[:id])
+	    user.name = @payload[:name]
+	    user.username = @payload[:username]
+	    user.password = @payload[:password]
+	    {
+	      success: true,
+	      message: "You updated user \##{user.id}"
+	    }.to_json
+  	end
 end
