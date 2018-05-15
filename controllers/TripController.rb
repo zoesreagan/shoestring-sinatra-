@@ -13,7 +13,14 @@ class TripController < ApplicationController
     puts "-----------------------------------------------------------------"
   end
 end
-
+	before do
+	    if !session[:logged_in]
+	      halt 200, {
+	        success: false,
+	        message: 'you are not loged in'
+	      }.to_json
+	    end
+	end
 	# get all of the trips that belong to a user- HANNAH
 
 	get '/' do
