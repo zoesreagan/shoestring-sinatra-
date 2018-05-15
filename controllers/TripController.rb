@@ -45,16 +45,15 @@ post '/' do
 	@trip.title = @payload[:title]
 	@trip.budget = @payload[:budget]
 	@trip.saved = @payload[:amountSaved]
-	@trip.flight_id = @payload[:@flight_id]
+	@trip.flight_id = @payload[:flight_id]
 	@trip.hotel_id = @payload[:hotel_id]
 	@trip.user_id = session[:user_id]
 	@trip.save
-	
+
 	{
 		success: true,
 		message: "Trip #{@trip.title} successfully created",
 		added_trip: @trip,
-		added_flight: @flight
 	}.to_json
 
 end
