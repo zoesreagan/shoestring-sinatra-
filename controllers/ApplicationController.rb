@@ -16,6 +16,8 @@ class ApplicationController < Sinatra::Base
   # use Rack::MethodOverride
   # set :method_override, true
 
+  require 'open-uri'
+
 	get '/' do
 		{
       success: false,
