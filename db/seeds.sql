@@ -12,3 +12,6 @@ INSERT INTO trips (title, budget, saved) VALUES ('thailand', '5000', '1000');
 INSERT INTO trips (title, budget, saved, user_id) VALUES ('thailand', '5000', '1000', 1);
 INSERT INTO flights (origin, destination) VALUES ('miami', 'lisbon');
 INSERT INTO trips (title, budget, saved, user_id) VALUES ('iceland', '5000', '1000', 1);
+
+
+INSERT INTO hotels (location) VALUES ('ORD');
