@@ -11,6 +11,8 @@ require './models/UserModel'
 require './models/TripModel'
 require './models/HotelModel'
 require './models/FlightModel'
+require './models/OutboundFlightModel'
+require './models/InboundFlightModel'
 
 
 

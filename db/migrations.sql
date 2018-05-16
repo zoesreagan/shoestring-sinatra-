@@ -10,6 +10,20 @@ CREATE TABLE users(
 	photo VARCHAR(256)
 );
 
+CREATE TABLE outbound_flights (
+	id SERIAL PRIMARY KEY,
+	airline VARCHAR(8),
+	flight_num_1 NUMERIC,
+	flight_num_2 NUMERIC
+);
+
+CREATE TABLE inbound_flights (
+	id SERIAL PRIMARY KEY,
+	airline VARCHAR(8),
+	flight_num_1 NUMERIC,
+	flight_num_2 NUMERIC
+);
+
 CREATE TABLE flights(
 	id SERIAL PRIMARY KEY,
 	origin VARCHAR(256),
@@ -18,8 +32,9 @@ CREATE TABLE flights(
 	arrives_at TIMESTAMP,
 	airline VARCHAR(64),
 	num_of_adults SMALLINT,
-	flight_num VARCHAR(64),
-	fare NUMERIC
+	fare NUMERIC,
+	outbound_id INT REFERENCES outbound_flights(id),
+	inbound_id INT REFERENCES inbound_flights(id)
 );
 
 CREATE TABLE hotels(
@@ -36,9 +51,10 @@ CREATE TABLE trips(
 	id SERIAL PRIMARY KEY,
 	user_id INT REFERENCES users(id),
 	title VARCHAR(256),
-	-- cost sum of fare + price ,
+	cost SMALLINT,
 	budget SMALLINT,
 	saved NUMERIC,
 	hotel_id INT REFERENCES hotels(id),
 	flight_id INT REFERENCES flights(id)
 );
+
