@@ -15,32 +15,61 @@ class TripController < ApplicationController
 	      }.to_json
 	end
 end
+	
+# get all the trips for the current user
+get '/' do
+	@trip = Trip.where(user_id: session[:user_id])
+	{
+		success: true,
+		trip: @trip
+	}.to_json
+end
 
-	get '/' do
+get '/:id' do
+	@trip = Trip.find params[:id]
+	@flight = Flight.find @trip[:flight_id]
 
-		@trip = Trip.where(user_id: session[:user_id])
-		{
-			success: true,
-			# message: "Here is a list of trips for #{@user.name}",
-			trip: @trip
-		}.to_json
+	{
+		success: true,
+		trip: @trip,
+		flight: @flight
+	}.to_json
+end
 
-	end
+
 
 ##CREATE TRIP ROUTE
 post '/' do
 	puts @payload
 	puts "this is payload ---------------------"
 
+	@flight = Flight.new
+	@flight.origin = @payload[:origin]
+	@flight.destination = @payload[:destination]		
+	@flight.departs_at = @payload[:departureDate]
+	@flight.arrives_at = @payload[:returnDate]
+	@flight.num_of_adults = @payload[:numOfPassengers]
+
+	departs_at = @flight.departs_at.to_s.slice(0..9)
+		arrives_at = @flight.arrives_at.to_s.slice(0..9)
+		num_of_adults = @flight.num_of_adults.to_s
+
+	query_string = 'https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=CsAYiUDotu5fFRg8Gl7WFv4AFCqSxRhQ&origin=' + @flight.origin + '&destination=' + @flight.destination + '&departure_date=' + departs_at + '&return_date=' + arrives_at + '&adults=' + num_of_adults + '&number_of_results=1'
+
+
+	@flight.save
+
 	# this is how you add something with ActiveRecord.
 	@trip = Trip.new #instantiating a new class from Trip model
 	@trip.title = @payload[:title]
 	@trip.budget = @payload[:budget]
 	@trip.saved = @payload[:amountSaved]
-	@trip.flight_id = @payload[:flight_id]
-	@trip.hotel_id = @payload[:hotel_id]
+	@trip.flight_id = @flight[:id]
+	# @trip.hotel_id = @payload[:hotel_id]
 	@trip.user_id = session[:user_id]
 	@trip.save
+
+
 
 	{
 		success: true,
@@ -48,6 +77,10 @@ post '/' do
 		added_trip: @trip,
 	}.to_json
 
+	response = open(query_string).read
+	# pp JSON.parse(response)
+	# binding.pry 
+	# THIS IS IN PROGRESS 
 end
 
 
