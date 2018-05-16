@@ -25,10 +25,10 @@ CREATE TABLE flights(
 CREATE TABLE hotels(
 	id SERIAL PRIMARY KEY,
 	location_code VARCHAR(32),
-	location VARCHAR,
+	-- address VARCHAR,
 	check_in DATE,
 	check_out DATE,
-	num_of_rooms SMALLINT,
+	-- num_of_rooms SMALLINT,
 	price NUMERIC
 );
 
