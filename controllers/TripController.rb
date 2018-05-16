@@ -78,4 +78,42 @@ end
 		}.to_json
 	end
 
+##NEED ALL HOTELS ROUTE
+
+  get '/hotels' do
+    @hotels = Hotel.all
+    @hotels.to_json
+  end
+
+  get '/hotels/:id' do
+    @hotel = Hotel.find params[:id]
+    check_in = @hotel.check_in.to_s.slice(0..9)
+    check_out = @hotel.check_out.to_s.slice(0..9)
+    num_of_rooms = @hotel.num_of_rooms.to_s
+
+    query_string = 'https://api.sandbox.amadeus.com/v1.2/hotels/search-airport?apikey=CsAYiUDotu5fFRg8Gl7WFv4AFCqSxRhQ&location=' + @hotel.location_code + '&check_in=' + @hotel.check_in + '&check_out=' + @hotel.check_out
+
+    pp query_string
+
+    response = open(query_string).read
+  end
+
+  post '/hotels' do
+
+    puts @payload, 'this is payload in hotels'
+
+    @hotel = Hotel.new
+    @hotel.location = @payload[:location]
+    @hotel.check_in = @payload[:checkIn]
+    @hotel.check_out = @payload[:checkOut]
+    @hotel.save
+
+    {
+      success: true,
+      message: "Hotel in #{@hotel.location} successfully created",
+      added_flight: @hotel
+    }.to_json
+
+  end
+
 end
