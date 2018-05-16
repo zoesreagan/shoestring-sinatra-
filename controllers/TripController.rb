@@ -71,16 +71,17 @@ post '/' do
 
 
 
+
+
+	response = open(query_string).read
+	resParsed = JSON.parse(response)
+	# binding.pry 
+	# THIS IS IN PROGRESS 
 	{
 		success: true,
 		message: "Trip #{@trip.title} successfully created",
 		added_trip: @trip,
 	}.to_json
-
-	response = open(query_string).read
-	# pp JSON.parse(response)
-	# binding.pry 
-	# THIS IS IN PROGRESS 
 end
 
 
