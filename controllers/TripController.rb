@@ -126,7 +126,7 @@ post '/' do
 	@trip.budget = @payload[:budget]
 	@trip.saved = @payload[:amountSaved]
 	@trip.flight_id = @flight[:id]
-	@trip.hotel_id = @payload[:hotel_id]
+	@trip.hotel_id = @hotel[:id]
 	@trip.user_id = session[:user_id]
 	@trip.cost = @flight.fare # plus hotel.cost once we get that
 	@trip.save
