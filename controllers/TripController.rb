@@ -67,14 +67,20 @@ post '/' do
 
 	@outbound = OutboundFlight.new
 	@outbound.flight_num_1 = resParsed["results"][0]["itineraries"][0]["outbound"]["flights"][0]["flight_number"]
-	@outbound.flight_num_2 = resParsed["results"][0]["itineraries"][0]["outbound"]["flights"][1]["flight_number"]
+	if (resParsed["results"][0]["itineraries"][0]["outbound"]["flights"].length != 1) 
+		@outbound.flight_num_2 = resParsed["results"][0]["itineraries"][0]["outbound"]["flights"][1]["flight_number"]
+	end
+	
 	@outbound.airline = resParsed["results"][0]["itineraries"][0]["outbound"]["flights"][0]["marketing_airline"]
 
 	@outbound.save
 
 	@inbound = InboundFlight.new
 	@inbound.flight_num_1 = resParsed["results"][0]["itineraries"][0]["inbound"]["flights"][0]["flight_number"]
-	@inbound.flight_num_1 = resParsed["results"][0]["itineraries"][0]["inbound"]["flights"][1]["flight_number"]
+	if (resParsed["results"][0]["itineraries"][0]["inbound"]["flights"].length != 1)
+		@inbound.flight_num_2 = resParsed["results"][0]["itineraries"][0]["inbound"]["flights"][1]["flight_number"]
+	end
+	
 	@inbound.airline = resParsed["results"][0]["itineraries"][0]["inbound"]["flights"][0]["marketing_airline"]
 
 	@inbound.save
