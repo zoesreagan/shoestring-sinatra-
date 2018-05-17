@@ -30,7 +30,7 @@ get '/:id' do
 	@flight = Flight.find @trip[:flight_id]
 	@outbound = OutboundFlight.find @flight[:outbound_id]
 	@inbound = InboundFlight.find @flight[:inbound_id]
-  	# @hotel = Hotel.find @trip[:hotel_id]
+  	@hotel = Hotel.find @trip[:hotel_id]
 
 	{
 		success: true,
@@ -38,7 +38,7 @@ get '/:id' do
 		flight: @flight,
 		outbound: @outbound,
 		inbound: @inbound,
-    # hotel: @hotel
+    	hotel: @hotel
 	}.to_json
 end
 
