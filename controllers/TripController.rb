@@ -211,6 +211,32 @@ put '/:id'do
 
 
 	# HOTEL STUFF
+	@hotel = Hotel.find(@trip[:hotel_id])
+
+  	@hotel.location_code = @payload[:locationCode]
+
+  	@hotel.check_in = @payload[:checkInDate]
+  	p @hotel.check_in
+  	@hotel.check_out = @payload[:checkOutDate]
+  	p @hotel.check_out
+
+  	check_in = @hotel.check_in.to_s.slice(0..9)
+  	p check_in
+  	check_out = @hotel.check_out.to_s.slice(0..9)
+  	p check_out
+
+  	query_string_hotel = 'https://api.sandbox.amadeus.com/v1.2/hotels/search-airport?apikey=CsAYiUDotu5fFRg8Gl7WFv4AFCqSxRhQ&location=' + @hotel.location_code + '&check_in=' + check_in + '&check_out=' + check_out + '&number_of_results=1'
+
+  	pp query_string_hotel
+  	response_hotel = open(query_string_hotel).read
+  	resParsed_hotel = JSON.parse(response_hotel)
+  	
+
+    @hotel.property_name = resParsed_hotel["results"][0]["property_name"]
+    @hotel.address = resParsed_hotel["results"][0]["address"]
+    @hotel.total_price = resParsed_hotel["results"][0]["total_price"]["amount"]
+    @hotel.booking_code = resParsed_hotel["results"][0]["rooms"][0]["booking_code"]
+  	@hotel.save
 
 
 	# TRIP STUFF
@@ -219,7 +245,7 @@ put '/:id'do
 	@trip.budget = @payload[:budget]
 	@trip.saved = @payload[:amountSaved]
 	@trip.flight_id = @flight[:id]
-	# @trip.hotel_id = @hotel[:id]
+	@trip.hotel_id = @hotel[:id]
 	@trip.user_id = session[:user_id]
 	@trip.cost = @flight.fare # plus hotel.cost once we get that
 	@trip.save
@@ -229,7 +255,7 @@ put '/:id'do
 		message: "You updated trip \##{@trip.id}",
 		updated_trip: @trip,
 		flight: @flight,
-		# hotel: @hotel
+		hotel: @hotel
 	}.to_json
 end
 
