@@ -81,7 +81,7 @@ If the user was successfully logged out, the API will return the following messa
 	message: "you are logged out"
 }
 
-TRIPS 
+## TRIPS 
 
 The user must be logged in to access their trips. If the user tries to hit any of the trip routes without being logged in to Shoestring, the API will return the following message: 
 
