@@ -12,63 +12,63 @@ You can access the following routes on the Shoestring API:
 
 If the request was successful, the API will return the following message: 
 
-{
-	success: true,
-	message: "Found user #{@user.id}",
-	found_user: @user
+{<br />
+	success: true, <br />
+	message: "Found user #{@user.id}", <br />
+	found_user: @user <br />
 }
 
 ### 2. "../user/register" <- Register a new user (POST)
 
 If the desired username is already taken, the API will return the following message: 
 
-{
-	success: false,
-	message: "username already taken, try again"
+{<br />
+	success: false, <br />
+	message: "username already taken, try again" <br />
 }
 
 If registration was successful, the API will return the following message: 
 
-{
-	success: true,
-	user_id: user.id,
-	username: user.username,
-	message: "you are logged in and you have a cookie attached to all the responses"
+{ <br />
+	success: true, <br />
+	user_id: user.id, <br />
+	username: user.username, <br />
+	message: "you are logged in and you have a cookie attached to all the responses" <br />
 }
 
 ### 3. "../user/login" <- Log in to Shoestring (POST)
 
 If login was successful, the API will return the following message: 
 
-{
-	success: true,
-	user_name: user.name,
-	user_id: user.id,
-	username: username,
-	message: "Login successful"
+{ <br />
+	success: true, <br />
+	user_name: user.name, <br />
+	user_id: user.id, <br />
+	username: username, <br />
+	message: "Login successful" <br />
 }
 
 If login was not successful, the API will return the following message: 
 
-{
-	success: false,
-	message: "Invalid Username or password"
+{ <br />
+	success: false, <br />
+	message: "Invalid Username or password" <br />
 }
 
 ### 4. "../user/:id" <- Edit an existing user (PUT)
 
 If the attempt to edit a user's account was successful, the API will return the following message: 
 
-{
-	success: true,
-	message: "User was successfully updated"
+{ <br />
+	success: true, <br />
+	message: "User was successfully updated" <br />
 }
 
 If the new desired username has already been taken, the API will return the following message: 
 
-{
-	success: false,
-	message: "username already taken, try again"
+{ <br />
+	success: false, <br />
+	message: "username already taken, try again" <br />
 }
 
 
@@ -76,27 +76,27 @@ If the new desired username has already been taken, the API will return the foll
 
 If the user was successfully logged out, the API will return the following message: 
 
-{
-	success: true,
-	message: "you are logged out"
+{ <br />
+	success: true, <br />
+	message: "you are logged out" <br />
 }
 
 ## TRIPS 
 
 The user must be logged in to access their trips. If the user tries to hit any of the trip routes without being logged in to Shoestring, the API will return the following message: 
 
-{
-	success: false,
-	message: "you are not logged in"
+{ <br />
+	success: false, <br />
+	message: "you are not logged in" <br />
 }
 
 ### 1. "../trips/" <- Get all the trips for the current user (GET)
 
 If the request is successful, the API will return the following message: 
 
-{
-	success: true,
-	trip: @trip
+{ <br />
+	success: true, <br />
+	trip: @trip <br />
 }
 
 This will include a list of all trips belonging to the current user.
@@ -105,13 +105,13 @@ This will include a list of all trips belonging to the current user.
 
 If the request is successful, the API will return the following message: 
 
-{
-	success: true,
-	trip: @trip,
-	flight: @flight,
-	outbound: @outbound,
-	inbound: @inbound,
-	hotel: @hotel
+{ <br />
+	success: true, <br />
+	trip: @trip, <br />
+	flight: @flight, <br />
+	outbound: @outbound, <br />
+	inbound: @inbound, <br />
+	hotel: @hotel <br />
 }
 
 This response object will contain details about the user's trip. The data is structured as follows: 
@@ -169,10 +169,10 @@ This response object will contain details about the user's trip. The data is str
 
 If the request is successful, the API will return the following message: 
 
-{
-	success: true,
-	message: "Trip #{@trip.title} successfully created",
-	added_trip: @trip 
+{ <br />
+	success: true, <br />
+	message: "Trip #{@trip.title} successfully created", <br />
+	added_trip: @trip  <br />
 }
 
 To ensure all parts of the trip were created, check the added_trip object to make sure that flight_id and hotel_id are *not null.* 
@@ -181,12 +181,12 @@ To ensure all parts of the trip were created, check the added_trip object to mak
 
 If the request is successful, the API will return the following message: 
 
-{
-	success: true,
-	message: "You updated trip \##{trip.id}",
-	updated_trip: @trip,
-	flight: @flight,
-	hotel: @hotel
+{ <br />
+	success: true, <br />
+	message: "You updated trip \##{trip.id}", <br />
+	updated_trip: @trip, <br />
+	flight: @flight, <br />
+	hotel: @hotel <br />
 }
 
 To ensure the trip was updated successfully, check the updated_trip object to make sure that flight_id and hotel_id are *not null.* 
@@ -195,8 +195,8 @@ To ensure the trip was updated successfully, check the updated_trip object to ma
 
 If the request is successful, the API will return the following message: 
 
-{
-	success: true,
-	message: "trip #{@trip.title} deleted successfully"
+{ <br />
+	success: true, <br />
+	message: "trip #{@trip.title} deleted successfully" <br />
 }
 
