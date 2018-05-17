@@ -30,7 +30,7 @@ get '/:id' do
 	@flight = Flight.find @trip[:flight_id]
 	@outbound = OutboundFlight.find @flight[:outbound_id]
 	@inbound = InboundFlight.find @flight[:inbound_id]
-  	@hotel = Hotel.find @trip[:hotel_id]
+  	# @hotel = Hotel.find @trip[:hotel_id]
 
 	{
 		success: true,
@@ -112,13 +112,13 @@ post '/' do
 
   # num_of_rooms = @hotel.num_of_rooms.to_s
 
-  	query_string_hotel = 'https://api.sandbox.amadeus.com/v1.2/hotels/search-airport?apikey=CsAYiUDotu5fFRg8Gl7WFv4AFCqSxRhQ&location=' + @hotel.location_code + '&check_in=' + check_in + '&check_out=' + check_out + '&number_of_results=1'
+  	# query_string_hotel = 'https://api.sandbox.amadeus.com/v1.2/hotels/search-airport?apikey=CsAYiUDotu5fFRg8Gl7WFv4AFCqSxRhQ&location=' + @hotel.location_code + '&check_in=' + check_in + '&check_out=' + check_out + '&number_of_results=1'
 
-  	pp query_string_hotel
-  	response_hotel = open(query_string_hotel).read
-  	resParsed_hotel = JSON.parse(response_hotel)
-  	# binding.pry
-  	@hotel.save
+  	# pp query_string_hotel
+  	# response_hotel = open(query_string_hotel).read
+  	# resParsed_hotel = JSON.parse(response_hotel)
+  	# # binding.pry
+  	# @hotel.save
 
 	# this is how you add something with ActiveRecord.
 	@trip = Trip.new #instantiating a new class from Trip model
@@ -143,31 +143,103 @@ end
 
 
 #UPDATE TRIP ROUTE
-	put '/:id'do
-		@trip = Trip.find(params[:id])
-		@trip.title = @payload[:title]
-		@trip.budget = @payload[:budget]
-		@trip.saved = @payload[:saved]
-		@trip.flight_id = @payload[:@flight_id]
-		@trip.hotel_id = @payload[:hotel_id]
-		@trip.save
-		{
-			success: true,
-			message: "You updated trip \##{@trip.id}",
-			updated_trip: @trip
-		}.to_json
+put '/:id'do
+
+	puts ""
+	pp @payload
+	puts "this is payload"
+	puts ""
+
+	@trip = Trip.find params[:id]
+
+	puts ""
+	pp @trip
+	puts "this is trip"
+	puts ""
+
+	# flights
+
+	@flight = Flight.find(@trip[:flight_id])
+
+	puts ""
+	pp @flight
+	puts "this is flight"
+	puts ''
+
+	@flight.origin = @payload[:origin]
+	@flight.destination = @payload[:destination]
+	@flight.departs_at = @payload[:departureDate]
+	@flight.arrives_at = @payload[:returnDate]
+	@flight.num_of_adults = @payload[:numOfPassengers]
+
+	departs_at = @flight.departs_at.to_s.slice(0..9)
+	arrives_at = @flight.arrives_at.to_s.slice(0..9)
+	num_of_adults = @flight.num_of_adults.to_s
+
+	query_string = 'https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=CsAYiUDotu5fFRg8Gl7WFv4AFCqSxRhQ&origin=' + @flight.origin + '&destination=' + @flight.destination + '&departure_date=' + departs_at + '&return_date=' + arrives_at + '&adults=' + num_of_adults + '&number_of_results=1'
+
+	response = open(query_string).read
+	resParsed = JSON.parse(response)
+
+	@flight.fare = resParsed["results"][0]["fare"]["total_price"]
+
+	@outbound = OutboundFlight.find(@flight[:outbound_id])
+	@outbound.flight_num_1 = resParsed["results"][0]["itineraries"][0]["outbound"]["flights"][0]["flight_number"]
+	if (resParsed["results"][0]["itineraries"][0]["outbound"]["flights"].length != 1)
+		@outbound.flight_num_2 = resParsed["results"][0]["itineraries"][0]["outbound"]["flights"][1]["flight_number"]
 	end
+
+	@outbound.airline = resParsed["results"][0]["itineraries"][0]["outbound"]["flights"][0]["marketing_airline"]
+
+	@outbound.save
+
+	@inbound = InboundFlight.find(@flight[:inbound_id])
+	@inbound.flight_num_1 = resParsed["results"][0]["itineraries"][0]["inbound"]["flights"][0]["flight_number"]
+	if (resParsed["results"][0]["itineraries"][0]["inbound"]["flights"].length != 1)
+		@inbound.flight_num_2 = resParsed["results"][0]["itineraries"][0]["inbound"]["flights"][1]["flight_number"]
+	end
+
+	@inbound.airline = resParsed["results"][0]["itineraries"][0]["inbound"]["flights"][0]["marketing_airline"]
+
+	@inbound.save
+
+	@flight.outbound_id = @outbound[:id]
+	@flight.inbound_id = @inbound[:id]
+
+	@flight.save
+
+
+	# HOTEL STUFF
+
+
+	# TRIP STUFF
+	 #instantiating a new class from Trip model
+	@trip.title = @payload[:title]
+	@trip.budget = @payload[:budget]
+	@trip.saved = @payload[:amountSaved]
+	@trip.flight_id = @flight[:id]
+	# @trip.hotel_id = @hotel[:id]
+	@trip.user_id = session[:user_id]
+	@trip.cost = @flight.fare # plus hotel.cost once we get that
+	@trip.save
+
+	{
+		success: true,
+		message: "You updated trip \##{@trip.id}",
+		updated_trip: @trip
+	}.to_json
+end
 
 #DELETE TRIP ROUTE
-	delete '/:id' do
-		@trip = Trip.find params[:id]
-		@trip.destroy
+delete '/:id' do
+	@trip = Trip.find params[:id]
+	@trip.destroy
 
-		{
-			success: true,
-			message: "trip #{@trip.title} deleted successfully"
-		}.to_json
-	end
+	{
+		success: true,
+		message: "trip #{@trip.title} deleted successfully"
+	}.to_json
+end
 
-
+# END FOR THE CLASS
 end
