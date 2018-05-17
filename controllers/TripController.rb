@@ -228,7 +228,8 @@ put '/:id'do
 		success: true,
 		message: "You updated trip \##{@trip.id}",
 		updated_trip: @trip,
-		flight: @flight
+		flight: @flight,
+		# hotel: @hotel
 	}.to_json
 end
 

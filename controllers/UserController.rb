@@ -7,7 +7,6 @@ class UserController < ApplicationController
 	    end
 	end
 
-#GET route to show user by sessionID
 	get '/' do
 		@user = User.find(session[:user_id])
 
@@ -46,14 +45,6 @@ class UserController < ApplicationController
 		  		message: 'you are logged in and you have a cookie attached to all the responses'
 	  		}.to_json
 		end
-	  	# puts ''
-	  	# puts 'hitting register rt. here is the session'
-	  	# pp session
-	  	# puts''
-
-	  	# here you should check for
-	  		# blank input -- send fail
-	  		# does this return succes and message
 	  	
 	end
 
@@ -110,10 +101,6 @@ class UserController < ApplicationController
 		  		message: 'User was successfuly updated'
 	  		}.to_json
 		end
-	    # user.save
-	    # {
-	    #   success: true,
-	    #   message: "You updated user"
-	    # }.to_json
+
   	end
 end
