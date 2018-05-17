@@ -38,7 +38,7 @@ get '/:id' do
 		flight: @flight,
 		outbound: @outbound,
 		inbound: @inbound,
-    hotel: @hotel
+    	hotel: @hotel
 	}.to_json
 end
 
@@ -131,7 +131,7 @@ post '/' do
   	@trip.flight_id = @flight[:id]
   	@trip.hotel_id = @hotel[:id]
   	@trip.user_id = session[:user_id]
-  	@trip.cost = @flight.fare # plus hotel.cost once we get that
+  	@trip.cost = @flight.fare + @hotel.total_price
   	@trip.save
 
 
@@ -246,7 +246,8 @@ put '/:id'do
 	{
 		success: true,
 		message: "You updated trip \##{@trip.id}",
-		updated_trip: @trip
+		updated_trip: @trip,
+		flight: @flight
 	}.to_json
 end
 
