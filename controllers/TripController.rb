@@ -63,16 +63,16 @@ post '/' do
 	query_string = 'https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=CsAYiUDotu5fFRg8Gl7WFv4AFCqSxRhQ&origin=' + @flight.origin + '&destination=' + @flight.destination + '&departure_date=' + departs_at + '&return_date=' + arrives_at + '&adults=' + num_of_adults + '&number_of_results=1'
 
 	response = open(query_string).read
-	resParsed = JSON.parse(response) 
+	resParsed = JSON.parse(response)
 
 	@flight.fare = resParsed["results"][0]["fare"]["total_price"]
 
 	@outbound = OutboundFlight.new
 	@outbound.flight_num_1 = resParsed["results"][0]["itineraries"][0]["outbound"]["flights"][0]["flight_number"]
-	if (resParsed["results"][0]["itineraries"][0]["outbound"]["flights"].length != 1) 
+	if (resParsed["results"][0]["itineraries"][0]["outbound"]["flights"].length != 1)
 		@outbound.flight_num_2 = resParsed["results"][0]["itineraries"][0]["outbound"]["flights"][1]["flight_number"]
 	end
-	
+
 	@outbound.airline = resParsed["results"][0]["itineraries"][0]["outbound"]["flights"][0]["marketing_airline"]
 
 	@outbound.save
@@ -82,7 +82,7 @@ post '/' do
 	if (resParsed["results"][0]["itineraries"][0]["inbound"]["flights"].length != 1)
 		@inbound.flight_num_2 = resParsed["results"][0]["itineraries"][0]["inbound"]["flights"][1]["flight_number"]
 	end
-	
+
 	@inbound.airline = resParsed["results"][0]["itineraries"][0]["inbound"]["flights"][0]["marketing_airline"]
 
 	@inbound.save
@@ -95,20 +95,20 @@ post '/' do
 
   	##HOTELS
   	@hotel = Hotel.new
-	
+
   	@hotel.location_code = @payload[:locationCode]
-	
+
   	@hotel.check_in = @payload[:checkInDate]
   	p @hotel.check_in
   	@hotel.check_out = @payload[:checkOutDate]
   	p @hotel.check_out
   	# @hotel.num_of_rooms = @payload[:numOfRooms]
-	
+
   	check_in = @hotel.check_in.to_s.slice(0..9)
   	p check_in
   	check_out = @hotel.check_out.to_s.slice(0..9)
   	p check_out
-	
+
 
   # num_of_rooms = @hotel.num_of_rooms.to_s
 
