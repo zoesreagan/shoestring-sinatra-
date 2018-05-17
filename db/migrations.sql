@@ -40,11 +40,12 @@ CREATE TABLE flights(
 CREATE TABLE hotels(
 	id SERIAL PRIMARY KEY,
 	location_code VARCHAR(32),
-	-- address VARCHAR,
+	property_name  VARCHAR(64),
+	address VARCHAR(512),
 	check_in DATE,
 	check_out DATE,
-	-- num_of_rooms SMALLINT,
-	price NUMERIC
+	total_price NUMERIC,
+	booking_code VARCHAR(32)
 );
 
 CREATE TABLE trips(
@@ -57,4 +58,3 @@ CREATE TABLE trips(
 	hotel_id INT REFERENCES hotels(id),
 	flight_id INT REFERENCES flights(id)
 );
-
