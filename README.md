@@ -1,14 +1,14 @@
 # shoestring-sinatra
 
-#Welcome to the Shoestring API. 
+# Welcome to the Shoestring API. 
 
 This API pulls in external data from the Amadeus Travel Innovation Sandbox Flight Low-Fare Search API and the Amadeus Travel Innovation Sandbox Hotel Airport Search to gather low-cost flights and accommodations for the budget-conscious millennial traveler. 
 
 You can access the following routes on the Shoestring API: 
 
-##USER 
+## USER 
 
-####"../user/" <- Get the user who is currently logged in (GET)
+#### "../user/" <- Get the user who is currently logged in (GET)
 
 If the request was successful, the API will return the following message: 
 
@@ -18,7 +18,7 @@ If the request was successful, the API will return the following message:
 	found_user: @user
 }
 
-####"../user/register" <- Register a new user (POST)
+#### "../user/register" <- Register a new user (POST)
 
 If the desired username is already taken, the API will return the following message: 
 
@@ -36,7 +36,7 @@ If registration was successful, the API will return the following message:
 	message: "you are logged in and you have a cookie attached to all the responses"
 }
 
-####"../user/login" <- Log in to Shoestring (POST)
+#### "../user/login" <- Log in to Shoestring (POST)
 
 If login was successful, the API will return the following message: 
 
@@ -55,7 +55,7 @@ If login was not successful, the API will return the following message:
 	message: "Invalid Username or password"
 }
 
-####"../user/:id" <- Edit an existing user (PUT)
+#### "../user/:id" <- Edit an existing user (PUT)
 
 If the attempt to edit a user's account was successful, the API will return the following message: 
 
@@ -72,7 +72,7 @@ If the new desired username has already been taken, the API will return the foll
 }
 
 
-####"../user/logout" <- Log out of Shoestring (GET)
+#### "../user/logout" <- Log out of Shoestring (GET)
 
 If the user was successfully logged out, the API will return the following message: 
 
@@ -90,7 +90,7 @@ The user must be logged in to access their trips. If the user tries to hit any o
 	message: "you are not logged in"
 }
 
-####"../trips/" <- Get all the trips for the current user (GET)
+#### "../trips/" <- Get all the trips for the current user (GET)
 
 If the request is successful, the API will return the following message: 
 
@@ -101,7 +101,7 @@ If the request is successful, the API will return the following message:
 
 This will include a list of all trips belonging to the current user.
 
-####"../trips/:id" <- Get details for a single trip (GET)
+#### "../trips/:id" <- Get details for a single trip (GET)
 
 If the request is successful, the API will return the following message: 
 
@@ -165,7 +165,7 @@ This response object will contain details about the user's trip. The data is str
 		booking_code: code //Booking code for best hotel option - generated in response from Amadeus Hotel Airport Search API
 	}
 
-####"../trips/" <- Create a new trip (POST)
+#### "../trips/" <- Create a new trip (POST)
 
 If the request is successful, the API will return the following message: 
 
@@ -175,9 +175,9 @@ If the request is successful, the API will return the following message:
 	added_trip: @trip 
 }
 
-To ensure all parts of the trip were created, check the added_trip object to make sure that flight_id and hotel_id are *not null.* 
+To ensure all parts of the trip were created, check the added_trip object to make sure that flight_id and hotel_id are * not null. * 
 
-####"../trips/:id" <- Update an existing trip (PUT)
+#### "../trips/:id" <- Update an existing trip (PUT)
 
 If the request is successful, the API will return the following message: 
 
@@ -189,9 +189,9 @@ If the request is successful, the API will return the following message:
 	hotel: @hotel
 }
 
-To ensure the trip was updated successfully, check the updated_trip object to make sure that flight_id and hotel_id are *not null.* 
+To ensure the trip was updated successfully, check the updated_trip object to make sure that flight_id and hotel_id are * not null. * 
 
-####"../trip/" <- Delete an existing trip (DELETE
+#### "../trip/" <- Delete an existing trip (DELETE
 
 If the request is successful, the API will return the following message: 
 
