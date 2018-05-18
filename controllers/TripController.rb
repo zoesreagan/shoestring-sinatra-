@@ -116,10 +116,23 @@ post '/' do
   	response_hotel = open(query_string_hotel).read
   	resParsed_hotel = JSON.parse(response_hotel)
 
-    binding.pry
+
 
     @hotel.property_name = resParsed_hotel["results"][0]["property_name"]
-    @hotel.address = resParsed_hotel["results"][0]["address"]
+
+    street_address = resParsed_hotel["results"][0]["address"]["line1"]
+    city = resParsed_hotel["results"][0]["address"]["city"]
+    region = resParsed_hotel["results"][0]["address"]["region"]
+    postal_code =  resParsed_hotel["results"][0]["address"]["postal_code"]
+    country = resParsed_hotel["results"][0]["address"]["country"]
+
+
+    address = street_address + ", " + city + ", " + region + " " + country + " " + postal_code
+
+    @hotel.address = address
+
+    # binding.pry
+
     @hotel.total_price = resParsed_hotel["results"][0]["total_price"]["amount"]
     @hotel.booking_code = resParsed_hotel["results"][0]["rooms"][0]["booking_code"]
   	@hotel.save
@@ -227,7 +240,17 @@ put '/:id'do
   resParsed_hotel = JSON.parse(response_hotel)
 
   @hotel.property_name = resParsed_hotel["results"][0]["property_name"]
-  @hotel.address = resParsed_hotel["results"][0]["address"]
+
+  street_address = resParsed_hotel["results"][0]["address"]["line1"]
+  city = resParsed_hotel["results"][0]["address"]["city"]
+  region = resParsed_hotel["results"][0]["address"]["region"]
+  postal_code =  resParsed_hotel["results"][0]["address"]["postal_code"]
+  country = resParsed_hotel["results"][0]["address"]["country"]
+
+  address = street_address + ", " + city + ", " + region + " " + country + " " + postal_code
+
+  @hotel.address = address
+  
   @hotel.total_price = resParsed_hotel["results"][0]["total_price"]["amount"]
   @hotel.booking_code = resParsed_hotel["results"][0]["rooms"][0]["booking_code"]
   @hotel.save
