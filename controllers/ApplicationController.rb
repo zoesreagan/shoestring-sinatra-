@@ -2,7 +2,7 @@ class ApplicationController < Sinatra::Base
 	require 'bundler'
 	Bundler.require()
 	require './config/environments'
-	
+
   register Sinatra::CrossOrigin
 
   # ActiveRecord::Base.establish_connection(
@@ -39,7 +39,7 @@ class ApplicationController < Sinatra::Base
   options '*' do
     p "opi"
     response.headers['Allow'] = 'HEAD, GET, POST, PUT, PATCH, DELETE'
-    response.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000'
+    response.headers['Access-Control-Allow-Origin'] = 'https://shoestring2.herokuapp.com'
     response.headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Cache-Control, Accept"
   end
 end
