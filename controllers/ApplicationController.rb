@@ -1,13 +1,14 @@
 class ApplicationController < Sinatra::Base
 	require 'bundler'
 	Bundler.require()
-
+	require './config/environments'
+	
   register Sinatra::CrossOrigin
 
-  ActiveRecord::Base.establish_connection(
-	    :adapter => 'postgresql',
-	    :database => 'shoestring'
-	)
+  # ActiveRecord::Base.establish_connection(
+	#     :adapter => 'postgresql',
+	#     :database => 'shoestring'
+	# )
 
   use Rack::Session::Cookie,  :key => 'rack.session',
                               :path => '/',
