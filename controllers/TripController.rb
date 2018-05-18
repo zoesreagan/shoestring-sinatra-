@@ -224,47 +224,16 @@ put '/:id'do
 	@flight.save
 
 
-<<<<<<< HEAD
 	# HOTEL EDIT
   @hotel = Hotel.find(@trip[:hotel_id])
 
   @hotel.location_code = @payload[:locationCode]
   @hotel.check_in = @payload[:checkInDate]
   @hotel.check_out = @payload[:checkOutDate]
-=======
-	# HOTEL STUFF
-	@hotel = Hotel.find(@trip[:hotel_id])
-
-  	@hotel.location_code = @payload[:locationCode]
-
-  	@hotel.check_in = @payload[:checkInDate]
-  	p @hotel.check_in
-  	@hotel.check_out = @payload[:checkOutDate]
-  	p @hotel.check_out
-
-  	check_in = @hotel.check_in.to_s.slice(0..9)
-  	p check_in
-  	check_out = @hotel.check_out.to_s.slice(0..9)
-  	p check_out
-
-  	query_string_hotel = 'https://api.sandbox.amadeus.com/v1.2/hotels/search-airport?apikey=CsAYiUDotu5fFRg8Gl7WFv4AFCqSxRhQ&location=' + @hotel.location_code + '&check_in=' + check_in + '&check_out=' + check_out + '&number_of_results=1'
-
-  	pp query_string_hotel
-  	response_hotel = open(query_string_hotel).read
-  	resParsed_hotel = JSON.parse(response_hotel)
-  	
-
-    @hotel.property_name = resParsed_hotel["results"][0]["property_name"]
-    @hotel.address = resParsed_hotel["results"][0]["address"]
-    @hotel.total_price = resParsed_hotel["results"][0]["total_price"]["amount"]
-    @hotel.booking_code = resParsed_hotel["results"][0]["rooms"][0]["booking_code"]
-  	@hotel.save
->>>>>>> 5e44ff4a9138589403458bde0ced4a104c8ae898
 
   check_in = @hotel.check_in.to_s.slice(0..9)
   check_out = @hotel.check_out.to_s.slice(0..9)
 
-<<<<<<< HEAD
   query_string_hotel = 'https://api.sandbox.amadeus.com/v1.2/hotels/search-airport?apikey=CsAYiUDotu5fFRg8Gl7WFv4AFCqSxRhQ&location=' + @hotel.location_code + '&check_in=' + check_in + '&check_out=' + check_out + '&number_of_results=1'
 
   response_hotel = open(query_string_hotel).read
@@ -281,16 +250,13 @@ put '/:id'do
   address = street_address + ", " + city + ", " + region + " " + country + " " + postal_code
 
   @hotel.address = address
-  
+
   @hotel.total_price = resParsed_hotel["results"][0]["total_price"]["amount"]
   @hotel.booking_code = resParsed_hotel["results"][0]["rooms"][0]["booking_code"]
   @hotel.save
 
 	# TRIP EDIT STUFF
 	#instantiating a new class from Trip model
-=======
-	# TRIP STUFF
->>>>>>> 5e44ff4a9138589403458bde0ced4a104c8ae898
 	@trip.title = @payload[:title]
 	@trip.budget = @payload[:budget]
 	@trip.saved = @payload[:amountSaved]
