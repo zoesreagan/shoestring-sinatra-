@@ -240,14 +240,13 @@ put '/:id'do
 
 
 	# TRIP STUFF
-	 #instantiating a new class from Trip model
 	@trip.title = @payload[:title]
 	@trip.budget = @payload[:budget]
 	@trip.saved = @payload[:amountSaved]
 	@trip.flight_id = @flight[:id]
 	@trip.hotel_id = @hotel[:id]
 	@trip.user_id = session[:user_id]
-	@trip.cost = @flight.fare # plus hotel.cost once we get that
+	@trip.cost = @flight.fare + @hotel.total_price
 	@trip.save
 
 	{
