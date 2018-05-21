@@ -61,7 +61,7 @@ post '/' do
 	arrives_at = @flight.arrives_at.to_s.slice(0..9)
 	num_of_adults = @flight.num_of_adults.to_s
 
-	query_string = 'https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=' + $key + '&origin=' + @flight.origin + '&destination=' + @flight.destination + '&departure_date=' + departs_at + '&return_date=' + arrives_at + '&adults=' + num_of_adults + '&number_of_results=1'
+	query_string = 'https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=' + ENV['API_KEY'] + '&origin=' + @flight.origin + '&destination=' + @flight.destination + '&departure_date=' + departs_at + '&return_date=' + arrives_at + '&adults=' + num_of_adults + '&number_of_results=1'
 
 	response = open(query_string).read
 	resParsed = JSON.parse(response)
@@ -110,7 +110,7 @@ post '/' do
   	check_out = @hotel.check_out.to_s.slice(0..9)
   	p check_out
 
-  	query_string_hotel = 'https://api.sandbox.amadeus.com/v1.2/hotels/search-airport?apikey=' + $key + @hotel.location_code + '&check_in=' + check_in + '&check_out=' + check_out + '&number_of_results=1'
+  	query_string_hotel = 'https://api.sandbox.amadeus.com/v1.2/hotels/search-airport?apikey=' + ENV['API_KEY'] + @hotel.location_code + '&check_in=' + check_in + '&check_out=' + check_out + '&number_of_results=1'
 
   	pp query_string_hotel
   	response_hotel = open(query_string_hotel).read
@@ -191,7 +191,7 @@ put '/:id'do
 	arrives_at = @flight.arrives_at.to_s.slice(0..9)
 	num_of_adults = @flight.num_of_adults.to_s
 
-	query_string = 'https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=' + $key + 'origin=' + @flight.origin + '&destination=' + @flight.destination + '&departure_date=' + departs_at + '&return_date=' + arrives_at + '&adults=' + num_of_adults + '&number_of_results=1'
+	query_string = 'https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=' + ENV['API_KEY'] + 'origin=' + @flight.origin + '&destination=' + @flight.destination + '&departure_date=' + departs_at + '&return_date=' + arrives_at + '&adults=' + num_of_adults + '&number_of_results=1'
 
 	response = open(query_string).read
 	resParsed = JSON.parse(response)
@@ -234,7 +234,7 @@ put '/:id'do
   check_in = @hotel.check_in.to_s.slice(0..9)
   check_out = @hotel.check_out.to_s.slice(0..9)
 
-  query_string_hotel = 'https://api.sandbox.amadeus.com/v1.2/hotels/search-airport?apikey=' + $key + '&location=' + @hotel.location_code + '&check_in=' + check_in + '&check_out=' + check_out + '&number_of_results=1'
+  query_string_hotel = 'https://api.sandbox.amadeus.com/v1.2/hotels/search-airport?apikey=' + ENV['API_KEY'] + '&location=' + @hotel.location_code + '&check_in=' + check_in + '&check_out=' + check_out + '&number_of_results=1'
 
   response_hotel = open(query_string_hotel).read
   resParsed_hotel = JSON.parse(response_hotel)

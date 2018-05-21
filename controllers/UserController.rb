@@ -1,6 +1,7 @@
 class UserController < ApplicationController
 
 	before do
+			puts $key
 	    payload_body = request.body.read
 	    if(payload_body != "")
 	      @payload = JSON.parse(payload_body).symbolize_keys
@@ -45,7 +46,7 @@ class UserController < ApplicationController
 		  		message: 'you are logged in and you have a cookie attached to all the responses'
 	  		}.to_json
 		end
-	  	
+
 	end
 
 	post '/login' do
