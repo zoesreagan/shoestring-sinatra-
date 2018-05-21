@@ -10,6 +10,8 @@ class ApplicationController < Sinatra::Base
 	#     :database => 'shoestring'
 	# )
 
+	$key = ENV['API_KEY']
+
   use Rack::Session::Cookie,  :key => 'rack.session',
                               :path => '/',
                               :secret => 'secret'
